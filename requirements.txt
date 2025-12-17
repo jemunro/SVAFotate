@@ -6,3 +6,4 @@ zlib
 cyvcf2>=0.30.4
 ncls>=0.0.57
 python>=3
+pip
