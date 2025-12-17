@@ -3,8 +3,7 @@ FROM ghcr.io/mamba-org/micromamba:git-35c00b7-ubuntu22.04
 USER root
 WORKDIR /opt/svafotate
 
-RUN micromamba config remove channels && \
-    micromamba config prepend channels bioconda && \
+RUN micromamba config prepend channels bioconda && \
     micromamba config prepend channels conda-forge && \
     micromamba config set channel_priority strict
 
