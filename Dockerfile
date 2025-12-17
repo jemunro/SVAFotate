@@ -4,8 +4,7 @@ USER root
 WORKDIR /opt/svafotate
 
 # Configure conda-forge only
-RUN micromamba config prepend channels conda-forge && \
-    micromamba config prepend channels bioconda && \
+RUN micromamba config set channels conda-forge bioconda && \
     micromamba config set channel_priority strict
 
 # Copy repo
