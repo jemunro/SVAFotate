@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:2.4-ubuntu25.10
+FROM ghcr.io/mamba-org/micromamba:git-35c00b7-ubuntu22.04
 
 USER root
 WORKDIR /opt/svafotate
