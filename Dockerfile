@@ -15,8 +15,7 @@ RUN micromamba install -y -n base --file requirements.txt && \
     micromamba clean --all --yes
 
 # Install SVAFotate
-RUN micromamba run -n base pip install --no-cache-dir .
-
-RUN svafotate --help
+RUN micromamba run -n base pip install --no-cache-dir . && \
+    micromamba run -n base svafotate --version
 
 ENTRYPOINT ["svafotate"]
