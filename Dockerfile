@@ -1,18 +1,20 @@
-FROM continuumio/miniconda3:25.3.1-1
+FROM mambaorg/micromamba:2.4-ubuntu25.10
 
-RUN conda config --remove channels defaults && \
-    conda config --add channels conda-forge && \
-    conda config --set channel_priority strict && \
-    conda install -n base -c conda-forge mamba -y && \
-    conda clean -afy
-
+USER root
 WORKDIR /opt/svafotate
 
+# Configure conda-forge only
+RUN micromamba config prepend channels conda-forge && \
+    micromamba config set channel_priority strict
+
+# Copy repo
 COPY . .
 
-RUN mamba install -n base --file requirements.txt && \
-    mamba clean -afy
+# Install deps exactly as upstream specifies
+RUN micromamba install -y -n base --file requirements.txt && \
+    micromamba clean --all --yes
 
+# Install SVAFotate
 RUN pip install --no-cache-dir .
 
 RUN svafotate --help
