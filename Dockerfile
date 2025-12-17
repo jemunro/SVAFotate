@@ -3,6 +3,7 @@ FROM ghcr.io/mamba-org/micromamba:git-35c00b7-ubuntu22.04
 USER root
 WORKDIR /opt/svafotate
 
+# set conda channels
 RUN micromamba config prepend channels bioconda && \
     micromamba config prepend channels conda-forge && \
     micromamba config set channel_priority strict
@@ -15,7 +16,8 @@ RUN micromamba install -y -n base --file requirements.txt && \
     micromamba clean --all --yes
 
 # Install SVAFotate
-RUN micromamba run -n base pip install --no-cache-dir . && \
-    micromamba run -n base svafotate --version
+RUN micromamba run -n base pip install --no-cache-dir .
 
-ENTRYPOINT ["svafotate"]
+ENV PATH=/opt/conda/bin:$PATH
+
+RUN svafotate --version
